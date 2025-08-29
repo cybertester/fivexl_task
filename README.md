@@ -1,6 +1,6 @@
 # Tony Stark Business Card
 
-A minimal business card website.
+A business card website.
 
 ## Deployment
 

@@ -1,53 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tony Stark - Business Card</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: #000;
-            border: 2px solid #FFD700;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            max-width: 350px;
-        }
-        .name {
-            font-size: 2em;
-            color: #FFD700;
-            margin-bottom: 10px;
-        }
-        .title {
-            color: #FF6B6B;
-            margin-bottom: 20px;
-        }
-        .contact div {
-            margin: 8px 0;
-            font-size: 0.9em;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tony Stark — Iron Man | Business Card</title>
+  <meta name="description" content="Tony Stark (Iron Man) business card: engineer, inventor, philanthropist. Equipment, projects and contacts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --bg-2: #0f1524;
+      --surface: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --primary: #e11d48; /* red */
+      --accent: #f59e0b;  /* gold */
+      --ok: #22c55e;
+      --ring: rgba(226, 29, 72, .35);
+      --card: #0e1422;
+      --shadow: 0 10px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+      --radius: 18px;
+      --gap: 18px;
+      --container: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 80% -20%, #1a2544 0%, transparent 60%),
+                  radial-gradient(1000px 500px at -10% 10%, #1f1330 0%, transparent 60%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--text); text-decoration: none; }
+    .container { width: min(100% - 32px, var(--container)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,23,.9), rgba(11,15,23,.55));
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .5px; }
+    .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 6px 16px var(--ring);}
+    .nav a { color: var(--muted); }
+    .nav a:hover { color: var(--text); }
+    .menu { display: flex; gap: 18px; align-items: center; }
+    .menu a.active { color: var(--text); font-weight: 600; }
+    .toggle { display: none; }
+
+    /* Hero */
+    .hero { position: relative; }
+    .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; padding: 56px 0 36px; }
+    .kicker { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 600; font-size: .9rem; letter-spacing: .4px; }
+    .kicker .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--ok); box-shadow: 0 0 16px var(--ok); }
+    h1 { font-size: clamp(34px, 4.6vw, 64px); line-height: 1.1; margin: 10px 0 12px; }
+    .subtitle { color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); max-width: 56ch; }
+    .cta { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: #0f1422; box-shadow: var(--shadow); transition: transform .15s ease, box-shadow .2s ease; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(226,29,72,.18); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), #b91c1c); border-color: transparent; box-shadow: 0 18px 40px rgba(226,29,72,.35); }
+    .btn.gold { background: linear-gradient(135deg, #f59e0b, #b45309); border-color: transparent; box-shadow: 0 18px 40px rgba(245,158,11,.35); }
+
+    /* Reactor */
+    .reactor-wrap { display: grid; place-items: center; }
+    .reactor {
+      width: 150px; height: 150px; position: relative;
+      background: radial-gradient(circle, #87ceeb 0%, #4682b4 50%, #191970 100%);
+      border-radius: 50%;
+      border: 4px solid #00bfff;
+      box-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .reactor::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #ffffff 0%, #87ceeb 100%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+    @keyframes pulse { 
+      0%,100% { 
+        box-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
+      } 
+      50% { 
+        box-shadow: 0 0 50px rgba(0, 191, 255, 1);
+      } 
+    }
+
+    /* Sections */
+    section { padding: 48px 0; }
+    .section-title { font-size: clamp(22px, 2.6vw, 32px); margin: 0 0 14px; letter-spacing: .2px; }
+    .muted { color: var(--muted); }
+    .grid { display: grid; gap: var(--gap); }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card { background: linear-gradient(180deg, var(--card), rgba(14,20,34,.55)); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .chip { display: inline-flex; align-items:center; gap:8px; padding: 6px 10px; font-size: .85rem; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.06); margin: 4px 6px 0 0; }
+    .chip::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: linear-gradient(135deg, var(--primary), var(--accent)); box-shadow: 0 0 10px var(--ring); }
+
+    .list { margin: 8px 0 0; padding: 0 0 0 18px; color: var(--muted); }
+
+    /* Contact */
+    .contact-card { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+    form { display: grid; gap: 12px; }
+    input, textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08); background: #0c1220; color: var(--text); outline: none; }
+    textarea { min-height: 140px; resize: vertical; }
+    label { font-size: .9rem; color: var(--muted); }
+
+    footer { border-top: 1px solid rgba(255,255,255,.06); color: var(--muted); padding: 26px 0 40px; }
+    .links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .reactor-wrap { order: -1; }
+      .grid.cols-3 { grid-template-columns: 1fr 1fr; }
+      .contact-card { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
+      .menu { display: none; }
+      .toggle { display: inline-flex; align-items:center; gap: 8px; padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08); background: #0f1422; color: var(--text); }
+      .mobile { display: grid; gap: 10px; padding: 12px; border-top: 1px solid rgba(255,255,255,.06); }
+      .mobile a { padding: 8px 0; }
+      .mobile.hidden { display: none; }
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="name">TONY STARK</div>
-        <div class="title">CEO, Stark Industries</div>
-        <div class="contact">
-            <div>📧 tony@starkindustries.com</div>
-            <div>📱 +1 (555) IRON-MAN</div>
-            <div>🌐 starkindustries.com</div>
-            <div>📍 Malibu, CA</div>
-        </div>
+  <header>
+    <div class="container nav" aria-label="Main navigation">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <a href="#top" class="brand-name">STARK</a>
+      </div>
+      <nav class="menu" aria-label="Section navigation">
+        <a href="#about" class="active">About</a>
+        <a href="#tech">Technology</a>
+        <a href="#projects">Projects</a>
+      </nav>
+      <button class="toggle" id="toggle" aria-controls="mobile-menu" aria-expanded="false">Menu ▾</button>
     </div>
+    <div id="mobile-menu" class="container mobile hidden">
+      <a href="#about">About</a>
+      <a href="#tech">Technology</a>
+      <a href="#projects">Projects</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span> engineer • inventor • philanthropist</div>
+          <h1>Tony Stark<br><span style="color: var(--accent)">Iron Man</span></h1>
+          <p class="subtitle">Creating future technologies: from arc reactor-based energy systems and AI assistants (JARVIS/FRIDAY) to high-precision armored exoskeletons. Always one step ahead of threats.</p>
+          <div class="cta" role="group" aria-label="Actions">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn gold" href="#tech">View Technology</a>
+          </div>
+        </div>
+        <div class="reactor-wrap" aria-hidden="true">
+          <div class="reactor" title="Arc Reactor"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <p class="muted">CEO of <strong>Stark Industries</strong>. Specialization: energy, aerospace systems, robotics and AI. I love solving impossible problems: fast, elegant and with power to spare.</p>
+      </div>
+    </section>
+
+    <section id="tech">
+      <div class="container">
+        <h2 class="section-title">Equipment and Expertise</h2>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Iron Man Exoskeletons</h3>
+            <p class="muted">Mark III → Mark LXXXV series. Materials: titanium-gold, composites, nanostructures. Systems: flight, stabilization, HUD, weaponry.
+            </p>
+            <div>
+              <span class="chip">Mark III</span>
+              <span class="chip">Mark XLV</span>
+              <span class="chip">Nanosuit</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Energy Systems</h3>
+            <p class="muted">Arc Reactor: miniaturized clean energy source. Powers suits, laboratories and experimental installations.</p>
+            <ul class="list">
+              <li>High power density</li>
+              <li>Multi-circuit protection</li>
+              <li>Low thermal signature</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>AI and Autonomy</h3>
+            <p class="muted">JARVIS/FRIDAY: pattern recognition, mission planning, diagnostics, drone swarm management.</p>
+            <div>
+              <span class="chip">ML/Vision</span>
+              <span class="chip">Navigation</span>
+              <span class="chip">Cybersecurity</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Earth Shield Initiative</h3>
+            <p class="muted">Orbital early warning and defense system against extraterrestrial threats. Sensor clusters + autonomous interceptors.</p>
+            <a class="btn" href="#tech" aria-label="Learn more about Earth Shield project">Learn More</a>
+          </article>
+          <article class="card">
+            <h3>Clean Energy for Cities</h3>
+            <p class="muted">Urban grid based on arc reactors: clean, quiet, scalable. Pilot project — Stark Tower.</p>
+            <a class="btn" href="#tech">View Technology</a>
+          </article>
+          <article class="card">
+            <h3>Medical Exoprosthetics</h3>
+            <p class="muted">Lightweight controlled prosthetics with feedback, developed based on suit technologies.</p>
+            <a class="btn" href="#tech">Explore Tech</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" role="contentinfo">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <small>© Stark Industries. Unofficial fan site.</small>
+        <small class="muted">Design & code: Alex ✦</small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const toggle = document.getElementById('toggle');
+    const mobile = document.getElementById('mobile-menu');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const hidden = mobile.classList.toggle('hidden');
+        toggle.setAttribute('aria-expanded', String(!hidden));
+      });
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu after navigation
+          if (!mobile.classList.contains('hidden')) {
+            mobile.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- SEO: structured data (minimal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tony Stark",
+    "alternateName": "Iron Man",
+    "jobTitle": "Engineer, Inventor, Philanthropist",
+    "affiliation": {"@type": "Organization", "name": "Stark Industries"},
+    "email": "press@stark-industries.example",
+    "url": "#",
+    "sameAs": ["#", "#", "#"]
+  }
+  </script>
 </body>
 </html>
