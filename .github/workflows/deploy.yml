@@ -20,8 +20,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       
-      - name: Deploy to S3
-        run: aws s3 sync index.html s3://${{ secrets.S3_BUCKET }} --delete
+      - name: Deploy index.html to S3
+        run: aws s3 cp index.html s3://${{ secrets.S3_BUCKET }}/index.html
       
       - name: Invalidate CloudFront
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
